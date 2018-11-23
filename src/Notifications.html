@@ -1,5 +1,18 @@
-<ul class="toasts" ref:toasts>
+<ul class="toasts">
+	{#each toasts as toast (toast.id)}
+		<li class="toast {toast.theme}" out:animateOut>
+			<div class="content">
+				{toast.msg} ({toast.id})
+			</div>
+			<div 
+					 class="progress" 
+					 style="animation: shrink {toast.timeout}ms linear forwards;">
+			</div>
+		</li>	
+	{/each}
+	
 </ul>
+
 
 <style>
 	:global(.toasts) {
@@ -17,20 +30,20 @@
 		margin: 10px;
 		min-width: 30vw;
 		position: relative;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+		animation: animate-in 350ms forwards;
+		color: #fff;
 	}
 	
 	:global(.toasts) > .toast > .content {
 		padding: 10px;
 		display: block;
 		font-weight: 500;
-		filter: invert(1) grayscale(1) contrast(10);
 	}
 	
 	:global(.toasts) > .toast > .progress {
 		background-color: rgb(0, 0, 0, 0.3);
 		height: 6px;
-		width: 100%;
+    width: 100%;
 	}
 	
 	:global(.toasts) > .toast:before,
@@ -38,7 +51,6 @@
 			content:"";
 			position:absolute;
 			z-index:-1;
-			box-shadow:0 0 20px rgba(0,0,0,0.8);
 			top:50%;
 			bottom:0;
 			left:10px;
@@ -51,12 +63,56 @@
 			left:auto;
 			transform:skew(8deg) rotate(3deg);
 	}
+	
+	.toast.danger { 
+		background-color: #bb2124;
+		color: #fff;
+	}
+	.toast.success { 
+		background-color: #22bb33;
+	}
+	.toast.warning { 
+		background-color: #f0ad4e;
+	}
+	.toast.info { 
+		background-color: #5bc0de;
+	}
+	.toast.default { 
+		background-color: #aaaaaa;
+	}
+	
+	@keyframes animate-in { 
+		0% { 
+			height: 0; 
+			opacity: 0; 
+		}
+		50% { 
+			height: 47px;
+			opacity: 0; 
+			transform: scale(1.15);
+		}
+		100% { 
+			opacity: 1; 
+			transform: scale(1);
+		}
+	}
+	
+	@keyframes shrink { 
+		0% { 
+			width: 100%; 
+		}
+		100% { 
+			width: 0%; 
+		}
+	}
+	
 </style>
 
 <script>
 	export default {
 		data () {
 			return {
+				toasts: [ ], 
 				themes: {
 					danger: '#bb2124',
 					success: '#22bb33',
@@ -66,48 +122,43 @@
 				}
 			}
 		},
+
+		transitions: { 
+			animateOut(node, { delay = 0, duration = 300 }) {
+				return {
+					delay,
+					duration,
+					css: t => t > .5 
+						? `opacity: ${(t-.5) * 1}; transform: scaleY(${(t-.5)*1});` 
+						: `opacity: 0; height: ${t * 2 * 47}px;`
+				};
+			}
+		},
+
 		methods: {
-			createToast (msg, theme) {
-				const { toasts } = this.refs
-				const { themes } = this.get()
-				const outer = document.createElement('li')
-				outer.style['background-color'] = themes[theme]
-				outer.setAttribute('class', 'toast')
-				
-				const content = document.createElement('div')
-				content.setAttribute('class', 'content')
-				content.textContent = msg
-				outer.appendChild(content)
-				
-			  const progress = document.createElement('div')
-				progress.setAttribute('class', 'progress')
-				outer.appendChild(progress)
-				
-				return outer
+			createToast (msg, theme, timeout) {
+				const { toasts } = this.get()
+				const id = toasts.length
+				toasts.unshift({
+					id,
+					msg, 
+					theme, 
+					timeout, 
+					width: '100%'
+				});
+				this.set({ toasts })
+				setTimeout(() => this.removeToast(id), timeout)
 			},
 			
+			removeToast(id) { 
+				const { toasts } = this.get()
+				this.set({
+					toasts: toasts.filter(t => t.id != id)
+				})
+			}, 
+			
 			show (msg, timeout = 3000, theme = 'default') {
-				const outer = this.createToast(msg, theme)
-				
-				const { toasts } = this.refs
-				toasts.appendChild(outer)
-				outer.style.opacity = 1;
-				
-				const start = new Date().getTime()
-				const progressMeter = setInterval(() => {
-					const now = new Date().getTime()
-					const diff = now - start
-					if (diff > timeout) {
-						clearInterval(progressMeter)
-					} else {
-						const progress = outer.querySelector('.progress')
-						progress.style.width = `${100 - (diff * (100 / timeout))}%`
-					}
-				}, 10)
-				
-				setTimeout(() => {
-					toasts.removeChild(outer)
-				}, timeout)
+				this.createToast(msg, theme, timeout)
 			},
 			
 			danger (msg, timeout) {

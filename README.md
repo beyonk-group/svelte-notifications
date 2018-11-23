@@ -121,3 +121,8 @@ const notifications = new Notifications({
 
 notifications.danger('oh no!', 7000)
 ```
+
+## Credits
+
+* Original code by [Antony Jones](https://github.com/antony)
+* Animation and performance improvements by jg.
