@@ -68,7 +68,7 @@ notifications.success(message, displayTimeMs)
 and you can customise the colours:
 
 ```jsx
-<Notifications ref:notifications {themes} />
+<Notifications ref:notifications {timeout} {themes} />
 
 <script>
   import Notifications from '@beyonk/svelte-notifications'
@@ -76,6 +76,7 @@ and you can customise the colours:
   export default {
     data () {
 			return {
+        timeout: 10000, // set a default timeout
 				themes: { // These are the defaults
 					danger: '#bb2124',
 					success: '#22bb33',
@@ -112,10 +113,7 @@ import Notifications from '@beyonk/svelte-notifications'
 const notifications = new Notifications({
   target: document.getElementById('#notifications'),
   data: {
-    themes: { // If you want to customise them.
-      danger: '#bb2124'
-      ...
-    }
+    // any of the configuration from above
   }
 })
 

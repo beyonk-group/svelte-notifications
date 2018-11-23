@@ -2,7 +2,7 @@
 	{#each toasts as toast (toast.id)}
 		<li class="toast {toast.theme}" out:animateOut>
 			<div class="content">
-				{toast.msg} ({toast.id})
+				{toast.msg}
 			</div>
 			<div 
 					 class="progress" 
@@ -115,7 +115,8 @@
 	export default {
 		data () {
 			return {
-				toasts: [ ], 
+				toasts: [ ],
+				timeout: 3000,
 				themes: {
 					danger: '#bb2124',
 					success: '#22bb33',
@@ -160,8 +161,9 @@
 				})
 			}, 
 			
-			show (msg, timeout = 3000, theme = 'default') {
-				this.createToast(msg, theme, timeout)
+			show (msg, timeout, theme = 'default') {
+				const { timeout: defaultTimeout } = this.get()
+				this.createToast(msg, theme, timeout || defaultTimeout)
 			},
 			
 			danger (msg, timeout) {
