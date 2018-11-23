@@ -103,7 +103,7 @@ and you can customise the colours:
 ```jsx
 <div id="notifications"></div>
 
-import notifications from '@beyonk/svelte-notifications'
+import Notifications from '@beyonk/svelte-notifications'
 
 const notifications = new Notifications({
   target: document.getElementById('#notifications'),

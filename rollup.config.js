@@ -31,7 +31,7 @@ if (dev) {
 }
 
 export default {
-	input: 'src/ScrollSpy.html',
+	input: 'src/Notifications.html',
 	output: [
 		{ file: pkg.module, 'format': 'es' },
 		{ file: pkg.main, 'format': 'umd', name }
