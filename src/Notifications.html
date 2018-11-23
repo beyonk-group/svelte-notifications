@@ -6,7 +6,7 @@
 			</div>
 			<div 
 					 class="progress" 
-					 style="animation: shrink {toast.timeout}ms linear forwards;">
+					 style="animation-duration: {toast.timeout}ms;">
 			</div>
 		</li>	
 	{/each}
@@ -44,6 +44,9 @@
 		background-color: rgb(0, 0, 0, 0.3);
 		height: 6px;
     width: 100%;
+	  animation-name: shrink;
+	  animation-timing-function: linear;
+	  animation-fill-mode: forwards;
 	}
 	
 	:global(.toasts) > .toast:before,
