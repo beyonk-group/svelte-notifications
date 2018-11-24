@@ -1,18 +1,17 @@
 <ul class="toasts">
 	{#each toasts as toast (toast.id)}
-		<li class="toast {toast.theme}" out:animateOut>
+		<li class="toast" style="background: {toast.background};" out:animateOut>
 			<div class="content">
-				{toast.msg}
+				{toast.msg} {toast.background}
 			</div>
 			<div 
 					 class="progress" 
-					 style="animation-duration: {toast.timeout}ms;">
+					 style="animation-duration: {toast.timeout}ms;"
+					 on:animationend="removeToast(toast.id)">
 			</div>
 		</li>	
 	{/each}
-	
 </ul>
-
 
 <style>
 	:global(.toasts) {
@@ -22,7 +21,7 @@
 		right: 0;
 		padding: 0;
 		margin: 0;
-		z-index: 2;
+		z-index: 10;
 	}
 	
 	:global(.toasts) > .toast {
@@ -41,6 +40,8 @@
 	}
 	
 	:global(.toasts) > .toast > .progress {
+		position: absolute;
+		bottom: 0;
 		background-color: rgb(0, 0, 0, 0.3);
 		height: 6px;
     width: 100%;
@@ -67,36 +68,16 @@
 			transform:skew(8deg) rotate(3deg);
 	}
 	
-	.toast.danger { 
-		background-color: #bb2124;
-		color: #fff;
-	}
-	.toast.success { 
-		background-color: #22bb33;
-	}
-	.toast.warning { 
-		background-color: #f0ad4e;
-	}
-	.toast.info { 
-		background-color: #5bc0de;
-	}
-	.toast.default { 
-		background-color: #aaaaaa;
-	}
-	
 	@keyframes animate-in { 
 		0% { 
 			height: 0; 
 			opacity: 0; 
-		}
-		50% { 
-			height: 47px;
-			opacity: 0; 
-			transform: scale(1.15);
+			transform: scale(1.15) translateX(20px);
 		}
 		100% { 
+			height: 47px;
 			opacity: 1; 
-			transform: scale(1);
+			transform: scale(1) translateX(0);
 		}
 	}
 	
@@ -115,8 +96,8 @@
 	export default {
 		data () {
 			return {
+				count: 0,
 				toasts: [ ],
-				timeout: 3000,
 				themes: {
 					danger: '#bb2124',
 					success: '#22bb33',
@@ -141,17 +122,16 @@
 
 		methods: {
 			createToast (msg, theme, timeout) {
-				const { toasts } = this.get()
-				const id = toasts.length
+				const { toasts, themes, count } = this.get()
+				const background = themes[theme] || themes['default']
 				toasts.unshift({
-					id,
+					id: count,
 					msg, 
-					theme, 
+					background, 
 					timeout, 
 					width: '100%'
-				});
-				this.set({ toasts })
-				setTimeout(() => this.removeToast(id), timeout)
+				})
+				this.set({ toasts, count: count + 1 })
 			},
 			
 			removeToast(id) { 
@@ -161,9 +141,8 @@
 				})
 			}, 
 			
-			show (msg, timeout, theme = 'default') {
-				const { timeout: defaultTimeout } = this.get()
-				this.createToast(msg, theme, timeout || defaultTimeout)
+			show (msg, timeout = 3000, theme = 'default') {
+				this.createToast(msg, theme, timeout)
 			},
 			
 			danger (msg, timeout) {
