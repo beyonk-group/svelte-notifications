@@ -26,7 +26,10 @@ const plugins = [
 
 if (dev) {
 	plugins.push(
-		serve()
+		serve({
+			contentBase: '.',
+			port: process.env.PORT || 10001
+		})
 	)
 }
 
