@@ -3,7 +3,7 @@
   "svelte": "src/Notifications.html",
   "module": "index.mjs",
   "main": "index.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "rollup -c",
     "dev": "NODE_ENV=development rollup -cw",
