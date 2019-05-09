@@ -35,24 +35,17 @@ export default {
 ## Usage
 
 ```jsx
-<Notifications ref:notifications />
+<Notifications bind:this={notifications} />
 
 <script>
   import Notifications from '@beyonk/svelte-notifications'
 
-  export default {
-    methods: {
-      notify () {
-        const { notifications } = this.refs
-        const message = 'bad things!'
-        const displayTimeMs = 7000
-        notifications.danger(message, displayTimeMs)
-      }
-    },
+  let notifications
 
-    components: {
-      Notifications
-    }
+  function notify () {
+    const message = 'bad things!'
+    const displayTimeMs = 7000
+    notifications.danger(message, displayTimeMs)
   }
 </script>
 ```
@@ -70,37 +63,23 @@ notifications.success(message, displayTimeMs)
 and you can customise the colours:
 
 ```jsx
-<Notifications ref:notifications {timeout} {themes} />
+<Notifications bind:this={notifications} {timeout} {themes} />
 
 <script>
   import Notifications from '@beyonk/svelte-notifications'
 
-  export default {
-    data () {
-			return {
-        timeout: 10000, // set a default timeout
-				themes: { // These are the defaults
-					danger: '#bb2124',
-					success: '#22bb33',
-					warning: '#f0ad4e',
-					info: '#5bc0de',
-					default: '#aaaaaa' // relates to simply '.show()'
-				}
-			}
-		},
+  let timeout = 10000
+  let themes = { // These are the defaults
+    danger: '#bb2124',
+    success: '#22bb33',
+    warning: '#f0ad4e',
+    info: '#5bc0de',
+    default: '#aaaaaa' // relates to simply '.show()'
+  }
 
-    methods: {
-      notify () {
-        const { notifications } = this.refs
-        const message = 'bad things!'
-        const displayTimeMs = 7000
-        notifications.danger(message, displayTimeMs)
-      }
-    },
-
-    components: {
-      Notifications
-    }
+  function notify () {
+    const message = 'bad things!'
+    notifications.danger(message)
   }
 </script>
 ```
