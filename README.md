@@ -8,6 +8,8 @@
 
 Svelte Notifications component
 
+* v3 compatible, but pending docs update!
+
 ## Demo
 
 [Svelte Notifications Demo](https://svelte.technology/repl?version=2.15.2&gist=381a8e97686c28ccface39c3f005116e)
