@@ -124,13 +124,13 @@
 
 	function createToast (msg, theme, timeout) {
 		const background = themes[theme] || themes['default']
-		toasts.unshift({
+		toasts = [{
 			id: count,
 			msg, 
 			background, 
 			timeout, 
 			width: '100%'
-		})
+		}, ...toasts];
 		count = count + 1
 	}
 	
