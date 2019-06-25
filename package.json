@@ -1,6 +1,6 @@
 {
   "name": "@beyonk/svelte-notifications",
-  "svelte": "src/Notifications.html",
+  "svelte": "src/Notifications.svelte",
   "module": "index.mjs",
   "main": "index.js",
   "version": "1.0.1",
@@ -10,16 +10,16 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "rollup": "^1.11.3",
+    "rollup": "^1.16.2",
     "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-node-resolve": "^4.2.4",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-serve": "^1.0.1",
-    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-svelte": "^5.1.0",
     "rollup-plugin-typescript": "^1.0.1",
-    "svelte": "^3.2.2",
-    "tslib": "^1.9.3",
-    "typescript": "^3.4.5"
+    "svelte": "^3.5.4",
+    "tslib": "^1.10.0",
+    "typescript": "^3.5.2"
   },
   "repository": "github:beyonk-adventures/svelte-notifications",
   "keywords": [
