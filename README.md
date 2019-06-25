@@ -8,7 +8,7 @@
 
 Svelte Notifications component
 
-* v3 compatible, but pending docs update!
+* v3 compatible
 
 ## Demo
 
