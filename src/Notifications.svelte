@@ -157,8 +157,4 @@
 	export function success (msg, timeout) {
 		show(msg, timeout, 'success')
 	}
-	
-	export function hide () {
-		shown = false
-	}
 </script>
