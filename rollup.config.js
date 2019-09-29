@@ -4,7 +4,6 @@ import serve from 'rollup-plugin-serve'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import css from 'rollup-plugin-postcss'
-import ts from 'rollup-plugin-typescript'
 
 const name = pkg.name
 	.replace(/^(@\S+\/)?(svelte-)?(\S+)/, '$3')
@@ -14,7 +13,6 @@ const name = pkg.name
 const dev = process.env.NODE_ENV === 'development'
 
 const plugins = [
-	ts(),
 	resolve(),
 	commonjs(),
 	css(),

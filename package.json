@@ -16,9 +16,7 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-svelte": "^5.1.0",
-    "rollup-plugin-typescript": "^1.0.1",
     "svelte": "^3.12.1",
-    "tslib": "^1.10.0",
     "typescript": "^3.5.2"
   },
   "repository": "github:beyonk-adventures/svelte-notifications",
