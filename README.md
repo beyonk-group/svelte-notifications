@@ -9,92 +9,123 @@
 Svelte Notifications component
 
 * v3 compatible
+* uses stores for completely hassle free operation
 
 ## Usage
-
-### To use within a Svelte application:
 
 ```bash
 npm i -D @beyonk/svelte-notifications
 ```
 
-```js
-import Notifications from '@beyonk/svelte-notifications'
-
-export default {
-	components: {
-    Notifications
-  }
-}
-```
-
-## Usage
-
 ```jsx
-<Notifications bind:this={notifications} />
+<NotificationDisplay />
+
+<button on:click={someFunction}>Show message</button>
 
 <script>
-  import Notifications from '@beyonk/svelte-notifications'
+import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
 
-  let notifications
-
-  function notify () {
-    const message = 'bad things!'
-    const displayTimeMs = 7000
-    notifications.danger(message, displayTimeMs)
-  }
+function someFunction () {
+  notifier.success('Notifications work!')
+}
 </script>
 ```
+
+### Notification types
 
 You can call multiple types of notification:
 
 ```js
-notifications.show(message, displayTimeMs)
-notifications.danger(message, displayTimeMs),
-notifications.warning(message, displayTimeMs),
-notifications.info(message, displayTimeMs),
-notifications.success(message, displayTimeMs)
+notifier.show('danger', message, displayTimeMs)
+notifier.danger(message, displayTimeMs),
+notifier.warning(message, displayTimeMs),
+notifier.info(message, displayTimeMs),
+notifier.success(message, displayTimeMs)
 ```
 
-and you can customise the colours:
+### Notification themes
+
+You can customise the themes:
 
 ```jsx
-<Notifications bind:this={notifications} {timeout} {themes} />
+<NotificationDisplay {themes} />
+
+<button on:click={someFunction}>Show message</button>
 
 <script>
-  import Notifications from '@beyonk/svelte-notifications'
+import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
 
-  let timeout = 10000
-  let themes = { // These are the defaults
-    danger: '#bb2124',
-    success: '#22bb33',
-    warning: '#f0ad4e',
-    info: '#5bc0de',
-    default: '#aaaaaa' // relates to simply '.show()'
-  }
+let themes = { // These are the defaults
+  danger: '#bb2124',
+  success: '#22bb33',
+  warning: '#f0ad4e',
+  info: '#5bc0de',
+  default: '#aaaaaa' // relates to simply '.show()'
+}
 
-  function notify () {
-    const message = 'bad things!'
-    notifications.danger(message)
-  }
+function someFunction () {
+  notifier.success('Notifications work!')
+}
 </script>
 ```
 
-### To use within a regular JS application:
+##### Custom types
 
 ```jsx
-<div id="notifications"></div>
+<NotificationDisplay {themes} />
 
-import Notifications from '@beyonk/svelte-notifications'
+<button on:click={someFunction}>Show message</button>
 
-const notifications = new Notifications({
-  target: document.getElementById('#notifications'),
-  data: {
-    // any of the configuration from above
-  }
-})
+<script>
+import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
 
-notifications.danger('oh no!', 7000)
+let themes = {
+  myColour: '#ff00bb'
+}
+
+function someFunction () {
+  notifier.send('myColour', 'Notifications work!')
+}
+</script>
+```
+
+#### Timeouts
+
+You can set a default timeout:
+
+```jsx
+<NotificationDisplay {timeout} />
+
+<button on:click={someFunction}>Show message</button>
+
+<script>
+import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
+
+let timeout = 3000 // The default
+
+function someFunction () {
+  notifier.success('Notifications work!')
+}
+</script>
+```
+
+##### Custom timeout:
+
+You can set a timeout per message
+
+```jsx
+<NotificationDisplay />
+
+<button on:click={someFunction}>Show message</button>
+
+<script>
+import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
+
+function someFunction () {
+  notifier.success('Notifications work!', 5000) // built in theme
+  notifier.send('custom-theme', 'Notifications work!', 5000) // custom theme
+}
+</script>
 ```
 
 ## Credits
