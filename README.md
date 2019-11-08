@@ -11,6 +11,10 @@ Svelte Notifications component
 * v3 compatible
 * uses stores for completely hassle free operation
 
+## Demo
+
+A [Demo of this component](https://svelte.dev/repl/dd506c546df84c1994a5ae9928ad23b1?version=3.12.1) is available.
+
 ## Usage
 
 ```bash
