@@ -27,7 +27,7 @@
 	:global(.toasts) > .toast {
 		position: relative;
 		margin: 10px;
-		min-width: 40vw;
+		min-width: var(--width);
 		position: relative;
 		animation: animate-in 350ms forwards;
 		color: #fff;
@@ -75,7 +75,7 @@
 			transform: scale(1.15) translateY(20px);
 		}
 		100% { 
-			width: 40vw;
+			width: var(--width);
 			opacity: 1; 
 			transform: scale(1) translateY(0);
 		}
@@ -83,7 +83,7 @@
 	
 	@keyframes shrink { 
 		0% { 
-			width: 40vw; 
+			width: var(--width); 
 		}
 		100% { 
 			width: 0; 
@@ -104,7 +104,15 @@
 		default: '#aaaaaa'
   }
 
-  export let timeout = 3000
+  export let options = {
+      timeout: 3000,
+      width: '40vw'
+  }
+
+  onMount(() => {
+      const toasts = document.querySelector('.toasts');
+      toasts.style.setProperty('--width', options.width);
+  });
 
 	let count = 0
 	let toasts = [ ]
@@ -135,7 +143,7 @@
 			id: count,
 			msg, 
 			background, 
-			timeout: to || timeout,
+			timeout: to || options.timeout,
 			width: '100%'
 		}, ...toasts];
 		count = count + 1
