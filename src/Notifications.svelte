@@ -1,4 +1,4 @@
-<ul class="toasts">
+<ul class="toasts" bind:this={toastsElement}>
 	{#each toasts as toast (toast.id)}
 		<li class="toast" style="background: {toast.background};" out:animateOut>
 			<div class="content">
@@ -104,19 +104,23 @@
 		default: '#aaaaaa'
   }
 
-  export let options = {
+    export let options;
+
+    const DEFAULT_OPTIONS = {
       timeout: 3000,
       width: '40vw'
   }
 
-  onMount(() => {
-      const toasts = document.querySelector('.toasts');
-      toasts.style.setProperty('--width', options.width);
-  });
+    $: o = Object.assign({}, DEFAULT_OPTIONS, options || {});
 
 	let count = 0
-	let toasts = [ ]
+    let toasts = [ ]
+    let toastsElement;
   let unsubscribe
+
+  onMount(() => {
+      toastsElement.style.setProperty('--width', o.width);
+  });
 
 	function animateOut(node, { delay = 0, duration = 300 }) {
 		function vhTOpx (value) {
@@ -143,7 +147,7 @@
 			id: count,
 			msg, 
 			background, 
-			timeout: to || options.timeout,
+			timeout: to || o.timeout,
 			width: '100%'
 		}, ...toasts];
 		count = count + 1
