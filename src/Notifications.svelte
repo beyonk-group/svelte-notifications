@@ -14,6 +14,7 @@
 </ul>
 
 <style>
+	/* purgecss start ignore */
 	:global(.toasts) {
 		list-style: none;
 		position: fixed;
@@ -89,7 +90,7 @@
 			width: 0; 
 		}
 	}
-	
+	/* purgecss end ignore */
 </style>
 
 <script>
