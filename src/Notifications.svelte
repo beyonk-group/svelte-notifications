@@ -26,7 +26,7 @@
 	
 	:global(.toasts) > .toast {
 		position: relative;
-		margin: 10px;
+		margin: 1vh 1vw;
 		min-width: 40vw;
 		position: relative;
 		animation: animate-in 350ms forwards;
@@ -34,7 +34,7 @@
 	}
 	
 	:global(.toasts) > .toast > .content {
-		padding: 10px;
+		padding: 1vw;
 		display: block;
 		font-weight: 500;
 	}
@@ -57,25 +57,25 @@
 			z-index:-1;
 			top:50%;
 			bottom:0;
-			left:10px;
-			right:10px;
+			left:1vw;
+			right:1vw;
 			border-radius:100px / 10px;
 	}
 	
 	:global(.toasts) > .toast:after {
-			right:10px;
-			left:auto;
+			right: 1vw;
+			left: auto;
 			transform:skew(8deg) rotate(3deg);
 	}
 	
 	@keyframes animate-in { 
 		0% { 
 			width: 0; 
-			opacity: 0; 
-			transform: scale(1.15) translateY(20px);
+			opacity: 0;
+			transform: scale(1.15) translateY(2vh);
 		}
 		100% { 
-			width: 40vw;
+			width: 98vw;
 			opacity: 1; 
 			transform: scale(1) translateY(0);
 		}
@@ -83,13 +83,36 @@
 	
 	@keyframes shrink { 
 		0% { 
-			width: 40vw; 
+			width: 98vw; 
 		}
 		100% { 
 			width: 0; 
 		}
 	}
+
+	@media (min-width: 480px) {
+		@keyframes animate-in {
+			0% { 
+				width: 0; 
+				opacity: 0;
+				transform: scale(1.15) translateY(2vh);
+			}
+			100% { 
+				width: 40vw;
+				opacity: 1; 
+				transform: scale(1) translateY(0);
+			}
+		}
 	
+		@keyframes shrink { 
+			0% { 
+				width: 40vw;
+			}
+			100% { 
+				width: 0; 
+			}
+		}
+	}
 </style>
 
 <script>
