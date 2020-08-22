@@ -29,7 +29,7 @@
 		margin: 1vh 1vw;
 		min-width: 40vw;
 		position: relative;
-		animation: animate-in 350ms forwards;
+		animation: animate-in 600ms forwards;
 		color: #fff;
 	}
 	
@@ -67,20 +67,40 @@
 			left: auto;
 			transform:skew(8deg) rotate(3deg);
 	}
-	
-	@keyframes animate-in { 
-		0% { 
-			width: 0; 
-			opacity: 0;
-			transform: scale(1.15) translateY(2vh);
+
+	@keyframes animate-in {
+		0%,
+		60%,
+		75%,
+		90%,
+		to {
+			-webkit-animation-timing-function: cubic-bezier(.215, .61, .355, 1);
+			animation-timing-function: cubic-bezier(.215, .61, .355, 1);
 		}
-		100% { 
-			width: 98vw;
-			opacity: 1; 
-			transform: scale(1) translateY(0);
+
+		0% {
+			opacity: 0;
+			transform: translate3d(3000px, 0, 0);
+		}
+
+		60% {
+			opacity: 1;
+			transform: translate3d(-25px, 0, 0);
+		}
+
+		75% {
+			transform: translate3d(10px, 0, 0);
+		}
+
+		90% {
+			transform: translate3d(-5px, 0, 0);
+		}
+
+		to {
+			transform: none;
 		}
 	}
-	
+
 	@keyframes shrink { 
 		0% { 
 			width: 98vw; 
@@ -92,15 +112,35 @@
 
 	@media (min-width: 480px) {
 		@keyframes animate-in {
-			0% { 
-				width: 0; 
-				opacity: 0;
-				transform: scale(1.15) translateY(2vh);
+			0%,
+			60%,
+			75%,
+			90%,
+			to {
+				-webkit-animation-timing-function: cubic-bezier(.215, .61, .355, 1);
+				animation-timing-function: cubic-bezier(.215, .61, .355, 1);
 			}
-			100% { 
-				width: 40vw;
-				opacity: 1; 
-				transform: scale(1) translateY(0);
+
+			0% {
+				opacity: 0;
+				transform: translate3d(3000px, 0, 0);
+			}
+
+			60% {
+				opacity: 1;
+				transform: translate3d(-25px, 0, 0);
+			}
+
+			75% {
+				transform: translate3d(10px, 0, 0);
+			}
+
+			90% {
+				transform: translate3d(-5px, 0, 0);
+			}
+
+			to {
+				transform: none;
 			}
 		}
 	
@@ -133,7 +173,7 @@
 	let toasts = [ ]
   let unsubscribe
 
-	function animateOut(node, { delay = 0, duration = 300 }) {
+	function animateOut(node, { delay = 0, duration = 1000 }) {
 		function vhTOpx (value) {
 			var w = window,
 				d = document,
@@ -148,7 +188,7 @@
 		return {
 			delay,
 			duration,
-			css: t => `opacity: ${(t-.5) * 1}; transform-origin: top right; transform: scaleX(${(t-.5)*1});`
+			css: t => `opacity: ${(t-.7) * 1}; transform-origin: top right;`
 		}
 	}
 
