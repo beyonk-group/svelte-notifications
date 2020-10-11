@@ -157,7 +157,7 @@
 
 <script>
   import { notification } from './store.js'
-  import { onMount, onDestroy } from 'svelte'
+  import { onDestroy } from 'svelte'
 
 	export let themes = {
 		danger: '#bb2124',
@@ -173,18 +173,7 @@
 	let toasts = [ ]
   let unsubscribe
 
-	function animateOut(node, { delay = 0, duration = 1000 }) {
-		function vhTOpx (value) {
-			var w = window,
-				d = document,
-				e = d.documentElement,
-				g = d.getElementsByTagName('body')[0],
-				x = w.innerWidth || e.clientWidth || g.clientWidth,
-				y = w.innerHeight|| e.clientHeight|| g.clientHeight;
-
-			return (y*value)/100;
-		}
-		
+	function animateOut(node, { delay = 0, duration = 1000 }) {		
 		return {
 			delay,
 			duration,
