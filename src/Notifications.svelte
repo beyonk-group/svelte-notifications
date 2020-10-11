@@ -3,7 +3,12 @@
 		<li class="toast" style="background: {toast.background};" out:animateOut>
 			<div class="content">
 				{toast.msg}
-			</div>
+      </div>
+      {#if closeable}
+        <svg on:click={() => removeToast(toast.id)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" preserveAspectRatio="xMidYMid meet" fill="white" aria-hidden="true" focusable="false">
+          <path d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"></path>
+        </svg>
+      {/if}
 			<div 
         class="progress" 
         style="animation-duration: {toast.timeout}ms;"
@@ -25,6 +30,8 @@
 	}
 	
 	:global(.toasts) > .toast {
+    display: flex;
+    align-items: center;
 		position: relative;
 		margin: 1vh 1vw;
 		min-width: 40vw;
@@ -38,6 +45,11 @@
 		display: block;
 		font-weight: 500;
 	}
+
+  :global(.toasts) > .toast > :global(svg) {
+    margin: 0 1vw 0 auto;
+    cursor: pointer;
+  }
 	
 	:global(.toasts) > .toast > .progress {
 		position: absolute;
@@ -103,7 +115,7 @@
 
 	@keyframes shrink { 
 		0% { 
-			width: 98vw; 
+			width: 40vw; 
 		}
 		100% { 
 			width: 0; 
@@ -143,15 +155,6 @@
 				transform: none;
 			}
 		}
-	
-		@keyframes shrink { 
-			0% { 
-				width: 40vw;
-			}
-			100% { 
-				width: 0; 
-			}
-		}
 	}
 </style>
 
@@ -168,20 +171,19 @@
   }
 
   export let timeout = 3000
+  export let closeable = true
 
 	let count = 0
-	let toasts = [ ]
+	let toasts = []
   let unsubscribe
 
-	function animateOut(node, { delay = 0, duration = 1000 }) {		
-		return {
-			delay,
-			duration,
-			css: t => `opacity: ${(t-.7) * 1}; transform-origin: top right;`
-		}
-	}
+	const animateOut = (node, { delay = 0, duration = 1000 }) => ({
+		delay,
+		duration,
+		css: t => `opacity: ${(t-.7) * 1}; transform-origin: top right;`
+	})
 
-	function createToast (msg, theme, to) {
+	const createToast = (msg, theme, to) => {
 		const background = themes[theme] || themes['default']
 		toasts = [{
 			id: count,
@@ -189,19 +191,17 @@
 			background, 
 			timeout: to || timeout,
 			width: '100%'
-		}, ...toasts];
-		count = count + 1
+		}, ...toasts]
+		count += 1
   }
   
   unsubscribe = notification.subscribe(value => {
-    if (!value) { return }
+    if (!value) return
     createToast(value.message, value.type, value.timeout)
     notification.set()
   })
   
   onDestroy(unsubscribe)
 	
-	function removeToast (id) { 
-		toasts = toasts.filter(t => t.id != id)
-	}
+	const removeToast = id => (toasts = toasts.filter(t => t.id != id))
 </script>

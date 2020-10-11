@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "example": "rollup -cw"
+    "dev": "rollup -cw"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.1.0",
