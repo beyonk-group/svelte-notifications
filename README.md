@@ -8,8 +8,8 @@
 
 Svelte Notifications component
 
-* v3 compatible
-* uses stores for completely hassle free operation
+- v3 compatible
+- uses stores for completely hassle free operation
 
 ## Demo
 
@@ -42,9 +42,9 @@ You can call multiple types of notification:
 ```js
 notifier.show('danger', message, displayTimeMs)
 notifier.danger(message, displayTimeMs),
-notifier.warning(message, displayTimeMs),
-notifier.info(message, displayTimeMs),
-notifier.success(message, displayTimeMs)
+  notifier.warning(message, displayTimeMs),
+  notifier.info(message, displayTimeMs),
+  notifier.success(message, displayTimeMs)
 ```
 
 ### Notification themes
@@ -88,7 +88,7 @@ let themes = {
 }
 
 function someFunction () {
-  notifier.send('myColour', 'Notifications work!')
+  notifier.send('Notifications work!', { type: 'myColour' })
 }
 </script>
 ```
@@ -126,13 +126,13 @@ You can set a timeout per message
 import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
 
 function someFunction () {
-  notifier.success('Notifications work!', 5000) // built in theme
-  notifier.send('custom-theme', 'Notifications work!', 5000) // custom theme
+  notifier.success('Notifications work!', { duration: 5000 }) // built in theme
+  notifier.send('Notifications work!', { type: 'custom-theme', duration: 5000 }) // custom theme
 }
 </script>
 ```
 
 ## Credits
 
-* Original code by [Antony Jones](https://github.com/antony)
-* Animation and performance improvements by jg.
+- Original code by [Antony Jones](https://github.com/antony)
+- Animation and performance improvements by jg.
