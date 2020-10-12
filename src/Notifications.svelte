@@ -171,7 +171,7 @@
   }
 
   export let timeout = 3000
-  export let closeable = true
+  export let closeable = false
 
 	let count = 0
 	let toasts = []
@@ -196,7 +196,7 @@
   }
   
   unsubscribe = notification.subscribe(value => {
-    if (!value) return
+    if (!value) { return }
     createToast(value.message, value.type, value.timeout)
     notification.set()
   })
