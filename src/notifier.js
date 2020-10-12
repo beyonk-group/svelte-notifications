@@ -1,16 +1,16 @@
 import { notification } from './store.js'
 
-export const send = (message, type = 'default', timeout) =>
-  notification.set({ type, message, timeout })
+export const send = (message, options) =>
+  notification.set({ message, options })
 
-export const danger = (msg, timeout) =>
-  send(msg, 'danger', timeout)
+export const danger = (msg, options) =>
+  send(msg, { type: 'danger', ...options })
 
-export const warning = (msg, timeout) =>
-  send(msg, 'warning', timeout)
+export const warning = (msg, options) =>
+  send(msg, { type: 'warning', ...options })
 
-export const info = (msg, timeout) =>
-  send(msg, 'info', timeout)
+export const info = (msg, options) =>
+  send(msg, { type: 'info', ...options })
 
-export const success = (msg, timeout) =>
-  send(msg, 'success', timeout)
+export const success = (msg, options) =>
+  send(msg, { type: 'success', ...options })

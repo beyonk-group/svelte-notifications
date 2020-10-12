@@ -4,7 +4,7 @@
 			<div class="content">
 				{toast.msg}
       </div>
-      {#if closeable}
+      {#if toast.closeable}
         <svg on:click={() => removeToast(toast.id)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" preserveAspectRatio="xMidYMid meet" fill="white" aria-hidden="true" focusable="false">
           <path d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"></path>
         </svg>
@@ -183,13 +183,14 @@
 		css: t => `opacity: ${(t-.7) * 1}; transform-origin: top right;`
 	})
 
-	const createToast = (msg, theme, to) => {
-		const background = themes[theme] || themes['default']
+	const createToast = (msg, { type, duration, close }) => {
+		const background = themes[type] || themes['default']
 		toasts = [{
 			id: count,
 			msg, 
-			background, 
-			timeout: to || timeout,
+      background,
+      timeout: duration || timeout,
+      closeable: typeof close !== 'undefined' ? close : closeable,
 			width: '100%'
 		}, ...toasts]
 		count += 1
@@ -197,7 +198,7 @@
   
   unsubscribe = notification.subscribe(value => {
     if (!value) { return }
-    createToast(value.message, value.type, value.timeout)
+    createToast(value.message, value.options)
     notification.set()
   })
   
