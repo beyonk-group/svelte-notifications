@@ -48,6 +48,8 @@
     margin: 6px;
     color: #fff;
     outline: none;
+    border: 0;
+    background-color: transparent;
   }
   
   .toasts > .toast > .content {
