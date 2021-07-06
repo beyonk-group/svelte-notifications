@@ -1,5 +1,4 @@
 .DS_Store
 node_modules
-index.js
-index.mjs
-!src/index.js
+/.svelte-kit
+/package

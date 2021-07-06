@@ -1,37 +1,19 @@
 {
   "name": "@beyonk/svelte-notifications",
-  "svelte": "src/index.js",
-  "module": "index.mjs",
-  "types": "src/index.d.ts",
-  "main": "index.js",
   "version": "3.1.1",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "NODE_ENV=development rollup -cw",
-    "prepublishOnly": "npm run build"
+    "dev": "svelte-kit dev --port 2000",
+    "build": "svelte-kit build",
+    "package": "svelte-kit package",
+    "preview": "svelte-kit preview",
+    "lint": "eslint --ignore-path .gitignore ."
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "rollup": "^1.16.2",
-    "rollup-plugin-postcss": "^2.0.3",
-    "rollup-plugin-serve": "^1.0.2",
-    "rollup-plugin-svelte": "^5.1.0",
-    "svelte": "^3.38.3"
+    "@beyonk/eslint-config": "^5.0.2",
+    "@sveltejs/kit": "next",
+    "eslint": "^7.22.0",
+    "eslint-plugin-svelte3": "^3.2.0",
+    "svelte": "^3.34.0"
   },
-  "repository": "github:beyonk-adventures/svelte-notifications",
-  "keywords": [
-    "svelte",
-    "notifications",
-    "toast",
-    "toastr",
-    "vanillajs",
-    "css",
-    "animation"
-  ],
-  "files": [
-    "src",
-    "index.mjs",
-    "index.js"
-  ]
+  "type": "module"
 }
