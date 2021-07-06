@@ -8,12 +8,15 @@
 
 Svelte Notifications component
 
+* Uses SvelteKit 🎉
 * v3 compatible
 * uses stores for completely hassle free operation
 
 ## Demo
 
-A [Demo of this component](https://svelte.dev/repl/dd506c546df84c1994a5ae9928ad23b1?version=3.12.1) is available.
+A [Demo of this component](https://svelte.dev/repl/dd506c546df84c1994a5ae9928ad23b1) is available.
+
+Alternatively, check the project out from github and `npm run dev`.
 
 ## Usage
 
@@ -21,7 +24,7 @@ A [Demo of this component](https://svelte.dev/repl/dd506c546df84c1994a5ae9928ad2
 npm i -D @beyonk/svelte-notifications
 ```
 
-```jsx
+```svelte
 <NotificationDisplay />
 
 <button on:click={someFunction}>Show message</button>
@@ -40,18 +43,23 @@ function someFunction () {
 You can call multiple types of notification:
 
 ```js
-notifier.show('danger', message, displayTimeMs)
-notifier.danger(message, displayTimeMs),
-notifier.warning(message, displayTimeMs),
-notifier.info(message, displayTimeMs),
-notifier.success(message, displayTimeMs)
+const options = {
+  timeout: 3000, // milliseconds
+  persist: false // automatic timeout (ignores above)
+}
+
+notifier.show('danger', message, options)
+notifier.danger(message, options),
+notifier.warning(message, options),
+notifier.info(message, options),
+notifier.success(message, options)
 ```
 
 ### Notification themes
 
 You can customise the themes:
 
-```jsx
+```svelte
 <NotificationDisplay {themes} />
 
 <button on:click={someFunction}>Show message</button>
@@ -75,7 +83,7 @@ function someFunction () {
 
 ##### Custom types
 
-```jsx
+```svelte
 <NotificationDisplay {themes} />
 
 <button on:click={someFunction}>Show message</button>
@@ -97,7 +105,7 @@ function someFunction () {
 
 You can set a default timeout:
 
-```jsx
+```svelte
 <NotificationDisplay {timeout} />
 
 <button on:click={someFunction}>Show message</button>
@@ -117,7 +125,7 @@ function someFunction () {
 
 You can set a timeout per message
 
-```jsx
+```svelte
 <NotificationDisplay />
 
 <button on:click={someFunction}>Show message</button>
@@ -126,8 +134,27 @@ You can set a timeout per message
 import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
 
 function someFunction () {
-  notifier.success('Notifications work!', 5000) // built in theme
-  notifier.send('custom-theme', 'Notifications work!', 5000) // custom theme
+  notifier.success('Notifications work!', { timeout: 5000 }) // built in theme
+  notifier.send('custom-theme', 'Notifications work!', { timeout: 5000 }) // custom theme
+}
+</script>
+```
+
+##### Persist
+
+You can make a message persist and never timeout, having a close button that the user can click to remove it.
+
+```svelte
+<NotificationDisplay />
+
+<button on:click={someFunction}>Show message</button>
+
+<script>
+import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
+
+function someFunction () {
+  notifier.success('Notifications work!', { perist: true }) // built in theme
+  notifier.send('custom-theme', 'Notifications work!', { perist: true }) // custom theme
 }
 </script>
 ```
@@ -135,4 +162,5 @@ function someFunction () {
 ## Credits
 
 * Original code by [Antony Jones](https://github.com/antony)
-* Animation and performance improvements by jg.
+* Idea for persistent notifications by [Henrique Borges](https://github.com/henriquehbr)
+* Animation and performance improvements by [Jonathan Greenemeier](https://github.com/6eDesign).
