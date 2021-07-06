@@ -2,8 +2,9 @@
   "name": "@beyonk/svelte-notifications",
   "svelte": "src/index.js",
   "module": "index.mjs",
+  "types": "src/index.d.ts",
   "main": "index.js",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "scripts": {
     "build": "rollup -c",
     "dev": "NODE_ENV=development rollup -cw",
@@ -16,7 +17,7 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-svelte": "^5.1.0",
-    "svelte": "^3.24.1"
+    "svelte": "^3.38.3"
   },
   "repository": "github:beyonk-adventures/svelte-notifications",
   "keywords": [
