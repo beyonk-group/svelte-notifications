@@ -1,5 +1,5 @@
 declare module "@beyonk/svelte-notifications" {
-    import { SvelteComponentTyped } from 'svelte/internal/index'
+    import { SvelteComponentTyped } from 'svelte/types/runtime'
 
     export type TNotificationTypes =
         'default' | 'danger' | 'warning' | 'info' | 'success'
