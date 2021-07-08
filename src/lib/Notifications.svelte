@@ -212,7 +212,7 @@
     }
   }
 
-  function createToast (msg, theme, options) {
+  function createToast (msg, theme, options = {}) {
     const background = themes[theme] || themes.default
     const persist = options.persist
     const computedTimeout = options.persist ? 0 : (options.timeout || timeout)
