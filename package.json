@@ -1,6 +1,6 @@
 {
   "name": "@beyonk/svelte-notifications",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "scripts": {
     "dev": "svelte-kit dev --port 2000",
     "build": "svelte-kit build",
