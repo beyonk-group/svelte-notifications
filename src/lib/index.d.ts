@@ -1,5 +1,5 @@
 declare module "@beyonk/svelte-notifications" {
-    import { SvelteComponentTyped } from 'svelte/types/runtime/index'
+    import { SvelteComponentTyped } from 'svelte/types/runtime'
 
     export type TNotificationTypes =
         'default' | 'danger' | 'warning' | 'info' | 'success'
@@ -19,8 +19,9 @@ declare module "@beyonk/svelte-notifications" {
         info: '#5bc0de',
         default: '#aaaaaa'
     }
-    export type TNotificationDisplay = SvelteComponentTyped<{ themes: ITheme, timeout: number }>
+    type IProps = { themes?: ITheme, timeout?: number }
+
+    export class NotificationDisplay extends SvelteComponentTyped<IProps>{}
 
     export const notifier: TNotifier;
-    export const NotificationDisplay: TNotificationDisplay
 }
