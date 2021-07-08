@@ -19,7 +19,7 @@ declare module "@beyonk/svelte-notifications" {
         info: '#5bc0de',
         default: '#aaaaaa'
     }
-    type IProps = { themes?: ITheme, timeout?: number }
+    type IProps = { themes?: ITheme, timeout?: number, persist?: boolean }
 
     export class NotificationDisplay extends SvelteComponentTyped<IProps>{}
 
