@@ -1,4 +1,4 @@
-<ul class="toasts">
+<ul class="toasts" bind:this={toastsElement}>
   {#each toasts as toast (toast.id)}
     <li class="toast" style="background: {toast.background};" out:animateOut>
       {#if toast.persist}
@@ -166,7 +166,7 @@
   
     @keyframes shrink { 
       0% { 
-        width: 40vw;
+        width: var(--width);
       }
       100% { 
         width: 0; 
@@ -176,7 +176,7 @@
 
   @media screen and (min-width: 600px) {
     .toasts > .toast {
-      min-width: 40vw;
+      min-width: var(--width);
       min-height: auto;
     }
 
@@ -188,7 +188,7 @@
 
 <script>
   import { notification } from './store.js'
-  import { onDestroy } from 'svelte'
+  import { onMount, onDestroy } from 'svelte'
 
   export let themes = {
     danger: '#bb2124',
@@ -199,10 +199,16 @@
   }
 
   export let timeout = 3000
+  export let width = '40vw'
 
   let count = 0
   let toasts = [ ]
+  let toastsElement;
   let unsubscribe
+
+  onMount(() => {
+      toastsElement.style.setProperty('--width', width);
+  });
 
   function animateOut (node, { delay = 0, duration = 1000 }) {
     return {
