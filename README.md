@@ -11,6 +11,7 @@ Svelte Notifications component
 * Uses SvelteKit 🎉
 * v3 compatible
 * uses stores for completely hassle free operation
+* Can persist across full page reloads!
 
 ## Demo
 
@@ -53,6 +54,18 @@ notifier.danger(message, options),
 notifier.warning(message, options),
 notifier.info(message, options),
 notifier.success(message, options)
+```
+
+### Persisting across apps
+
+Your notifications can persist across multiple apps / page reloads, as long as they use this library. This is useful for a scenario where you show a notification and then redirect the browser to a different application, or trigger a full reload of the page.
+
+This is completely automatic and uses session storage.
+
+To ensure that notifications don't persist across apps where they should not, set the `sessionKey` attribute to something unique to each app.
+
+```svelte
+<NotificationDisplay sessionKey="foo" />
 ```
 
 ### Notification themes

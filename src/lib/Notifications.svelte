@@ -1,4 +1,4 @@
-<ul class="toasts">
+<ul class="toasts" use:toaster={sessionKey} on:notify={createToast}>
   {#each toasts as toast (toast.id)}
     <li class="toast" style="background: {toast.background};" out:animateOut>
       {#if toast.persist}
@@ -7,7 +7,7 @@
       </button>
       {/if}
       <div class="content">
-        {toast.msg}
+        {toast.message}
       </div>
       <div 
         class="progress" 
@@ -187,8 +187,7 @@
 </style>
 
 <script>
-  import { notification } from './store.js'
-  import { onDestroy } from 'svelte'
+  import { toaster } from './toaster.js'
 
   export let themes = {
     danger: '#bb2124',
@@ -199,10 +198,9 @@
   }
 
   export let timeout = 3000
+  export let sessionKey = 'byk-toasts'
 
-  let count = 0
-  let toasts = [ ]
-  let unsubscribe
+  let toasts = []
 
   function animateOut (node, { delay = 0, duration = 1000 }) {
     return {
@@ -212,35 +210,47 @@
     }
   }
 
-  function createToast (msg, theme, options = {}) {
-    const background = themes[theme] || themes.default
+  function createToast ({ detail }) {
+    const { message, type, options = {} } = detail
+    const background = themes[type] || themes.default
     const persist = options.persist
     const computedTimeout = options.persist ? 0 : (options.timeout || timeout)
+    const id = Math.random().toString(36).replace(/[^a-z]+/g, '')
+
+    sessionStorage.setItem(
+      sessionKey,
+      JSON.stringify([
+        ...JSON.parse(sessionStorage.getItem(sessionKey) || '[]'),
+        { ...detail, id }
+      ])
+    )
 
     toasts = [ {
-      id: count,
-      msg,
+      id,
+      message,
       background,
       persist,
       timeout: computedTimeout,
       width: '100%'
     }, ...toasts ]
-    count = count + 1
   }
-  
-  unsubscribe = notification.subscribe(value => {
-    if (!value) { return }
-    createToast(value.message, value.type, value.options)
-    notification.set()
-  })
-  
-  onDestroy(unsubscribe)
 
   function maybePurge (toast) {
     !toast.persist && purge(toast.id)
   }
 
   function purge (id) {
-    toasts = toasts.filter(t => t.id !== id)
+    const filter = t => t.id !== id
+    toasts = toasts.filter(filter)
+    try {
+      sessionStorage.setItem(
+        sessionKey,
+        JSON.stringify(
+          JSON.parse(sessionStorage.getItem(sessionKey) || '[]').filter(filter)
+        )
+      )
+    } catch (e) {
+
+    }
   }
 </script>
