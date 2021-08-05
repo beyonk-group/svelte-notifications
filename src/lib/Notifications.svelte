@@ -217,13 +217,17 @@
     const computedTimeout = options.persist ? 0 : (options.timeout || timeout)
     const id = Math.random().toString(36).replace(/[^a-z]+/g, '')
 
-    sessionStorage.setItem(
-      sessionKey,
-      JSON.stringify([
-        ...JSON.parse(sessionStorage.getItem(sessionKey) || '[]'),
-        { ...detail, id }
-      ])
-    )
+    try {
+      sessionStorage.setItem(
+        sessionKey,
+        JSON.stringify([
+          ...JSON.parse(sessionStorage.getItem(sessionKey) || '[]'),
+          { ...detail, id }
+        ])
+      )
+    } catch (e) {
+      console.log('unable to set sessionStorage', e)
+    }
 
     toasts = [ {
       id,
@@ -250,7 +254,7 @@
         )
       )
     } catch (e) {
-
+      console.log('unable to set sessionStorage', e)
     }
   }
 </script>
