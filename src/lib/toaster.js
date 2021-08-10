@@ -20,9 +20,10 @@ async function toaster (node, sessionKey) {
       notification.set(n)
     }
   } catch (e) {
-
   } finally {
-    sessionStorage.removeItem(sessionKey)
+    try {
+      sessionStorage.removeItem(sessionKey)
+    } catch (e2) {}
   }
 
   return {

@@ -225,9 +225,7 @@
           { ...detail, id }
         ])
       )
-    } catch (e) {
-
-    }
+    } catch (e) {}
 
     toasts = [ {
       id,
