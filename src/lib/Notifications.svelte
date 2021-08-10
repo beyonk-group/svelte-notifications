@@ -225,7 +225,9 @@
           { ...detail, id }
         ])
       )
-    } catch (e) {}
+    } catch (e) {
+
+    }
 
     toasts = [ {
       id,
@@ -251,6 +253,8 @@
           JSON.parse(sessionStorage.getItem(sessionKey) || '[]').filter(filter)
         )
       )
-    } catch (e) {}
+    } catch (e) {
+
+    }
   }
 </script>
