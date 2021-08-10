@@ -225,9 +225,7 @@
           { ...detail, id }
         ])
       )
-    } catch (e) {
-      console.log('unable to set sessionStorage', e)
-    }
+    } catch (e) {}
 
     toasts = [ {
       id,
@@ -253,8 +251,6 @@
           JSON.parse(sessionStorage.getItem(sessionKey) || '[]').filter(filter)
         )
       )
-    } catch (e) {
-      console.log('unable to set sessionStorage', e)
-    }
+    } catch (e) {}
   }
 </script>
