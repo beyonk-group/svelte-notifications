@@ -10,9 +10,10 @@
 	let text = 'This is the message which will display'
 	let persist = false
 	let showProgress = true
+	let showIcon = false
 
 	function demo () {
-	  notifier[type === 'default' ? 'send' : type](text, { timeout, persist, showProgress, icon: Icon })
+	  notifier[type === 'default' ? 'send' : type](text, { timeout, persist, showProgress, icon: showIcon ? Icon : null })
 	}
 </script>
 
@@ -49,6 +50,13 @@
     <input type="checkbox" class="form" bind:checked={showProgress} id="showProgress" />
     <label for="showProgress" class="form">
       Show Progress
+    </label>
+  </div>
+
+	<div>
+    <input type="checkbox" class="form" bind:checked={showIcon} id="showIcon" />
+    <label for="showIcon" class="form">
+      Show Icon
     </label>
   </div>
 
