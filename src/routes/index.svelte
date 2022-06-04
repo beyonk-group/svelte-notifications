@@ -1,16 +1,19 @@
 <script>
 	import { NotificationDisplay, notifier } from '$lib'
 
-const types = [ 'success', 'danger', 'warning', 'info', 'default' ]
-	
-let timeout = 3000
-let type = 'success'
-let text = 'This is the message which will display'
-let persist = false
+	import Icon from '$lib/Icon.svelte'
 
-function demo () {
-  notifier[type === 'default' ? 'send' : type](text, { timeout, persist })
-}
+	const types = [ 'success', 'danger', 'warning', 'info', 'default' ]
+
+	let timeout = 3000
+	let type = 'success'
+	let text = 'This is the message which will display'
+	let persist = false
+	let showProgress = true
+
+	function demo () {
+	  notifier[type === 'default' ? 'send' : type](text, { timeout, persist, showProgress, icon: Icon })
+	}
 </script>
 
 <NotificationDisplay />
@@ -29,7 +32,7 @@ function demo () {
       <option value={type}>{type}</option>
     {/each}
   </select>
-  
+
   <label class="form" for="timeou">
     Timeout {timeout}
   </label>
@@ -39,6 +42,13 @@ function demo () {
     <input type="checkbox" class="form" bind:checked={persist} id="persist" />
     <label for="persist" class="form">
       Persist
+    </label>
+  </div>
+
+	<div>
+    <input type="checkbox" class="form" bind:checked={showProgress} id="showProgress" />
+    <label for="showProgress" class="form">
+      Show Progress
     </label>
   </div>
 
