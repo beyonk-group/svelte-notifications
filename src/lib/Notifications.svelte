@@ -19,11 +19,7 @@
           on:animationend={() => maybePurge(toast) }>
         </div>
       {:else}
-        {#await new Promise(resolve => setTimeout(resolve, toast.timeout))}
-          <span class="hidden">Toast Visable</span>
-        {:then}
-          <span class="hidden">Toast Timed Out { maybePurge(toast) }</span>
-        {/await}
+        <span class="hidden">{maybePurgeAfterTimeout(toast)}</span>
       {/if}
     </li>
   {/each}
@@ -258,6 +254,10 @@
 
   function maybePurge (toast) {
     !toast.persist && purge(toast.id)
+  }
+
+  function maybePurgeAfterTimeout (toast) {
+    setTimeout(() => maybePurge(toast), toast.timeout)
   }
 
   function purge (id) {
