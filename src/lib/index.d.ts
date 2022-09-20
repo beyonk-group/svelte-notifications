@@ -13,11 +13,11 @@ declare module "@beyonk/svelte-notifications" {
     }
 
     export interface ITheme {
-        danger: '#bb2124',
-        success: '#22bb33',
-        warning: '#f0ad4e',
-        info: '#5bc0de',
-        default: '#aaaaaa'
+        danger: string,
+        success: string,
+        warning: string,
+        info: string,
+        default: string
     }
     type IProps = { themes?: ITheme, timeout?: number, persist?: boolean }
 
