@@ -228,7 +228,7 @@
     const computedTimeout = options.persist ? 0 : (options.timeout || timeout)
     const id = Math.random().toString(36).replace(/[^a-z]+/g, '')
     const showProgress = options.showProgress ?? true
-    const icon = options.icon // Should be a svelte component
+    const icon = options.icon
 
     try {
       sessionStorage.setItem(
