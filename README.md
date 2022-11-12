@@ -166,8 +166,8 @@ You can make a message persist and never timeout, having a close button that the
 import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
 
 function someFunction () {
-  notifier.success('Notifications work!', { perist: true }) // built in theme
-  notifier.send('custom-theme', 'Notifications work!', { perist: true }) // custom theme
+  notifier.success('Notifications work!', { persist: true }) // built in theme
+  notifier.send('custom-theme', 'Notifications work!', { persist: true }) // custom theme
 }
 </script>
 ```
