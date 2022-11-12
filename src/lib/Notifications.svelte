@@ -227,7 +227,7 @@
     const persist = options.persist
     const computedTimeout = options.persist ? 0 : (options.timeout || timeout)
     const id = Math.random().toString(36).replace(/[^a-z]+/g, '')
-    const showProgress = options.showProgress ?? true // Default showProgress to true
+    const showProgress = options.showProgress ?? true
     const icon = options.icon // Should be a svelte component
 
     try {
