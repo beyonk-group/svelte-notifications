@@ -7,14 +7,21 @@
       </button>
       {/if}
       <div class="content">
+        {#if toast.icon}
+          <svelte:component this={toast.icon} />
+        {/if}
         {toast.message}
       </div>
-      <div 
-        class="progress" 
-        style="animation-duration: {toast.timeout}ms;"
-        on:animationend={() => maybePurge(toast) }>
-      </div>
-    </li>  
+      {#if toast.showProgress}
+        <div
+          class="progress"
+          style="animation-duration: {toast.timeout}ms;"
+          on:animationend={() => maybePurge(toast) }>
+        </div>
+      {:else}
+        <span class="hidden">{maybePurgeAfterTimeout(toast)}</span>
+      {/if}
+    </li>
   {/each}
 </ul>
 
@@ -28,7 +35,7 @@
     margin: 0;
     z-index: 9999;
   }
-  
+
   .toasts > .toast {
     display: flex;
     align-items: center;
@@ -51,14 +58,14 @@
     border: 0;
     background-color: transparent;
   }
-  
+
   .toasts > .toast > .content {
     padding: 1vw;
     display: flex;
     font-weight: 500;
     margin-right: 20px;
   }
-  
+
   .toasts > .toast > .progress {
     position: absolute;
     bottom: 0;
@@ -69,7 +76,7 @@
     animation-timing-function: linear;
     animation-fill-mode: forwards;
   }
-  
+
   .toasts > .toast:before,
   .toasts > .toast:after {
     content:"";
@@ -81,7 +88,7 @@
     right:1vw;
     border-radius:100px / 10px;
   }
-  
+
   .toasts > .toast:after {
     right: 1vw;
     left: auto;
@@ -121,12 +128,12 @@
     }
   }
 
-  @keyframes shrink { 
-    0% { 
-      width: 98vw; 
+  @keyframes shrink {
+    0% {
+      width: 98vw;
     }
-    100% { 
-      width: 0; 
+    100% {
+      width: 0;
     }
   }
 
@@ -163,13 +170,13 @@
         transform: none;
       }
     }
-  
-    @keyframes shrink { 
-      0% { 
+
+    @keyframes shrink {
+      0% {
         width: 40vw;
       }
-      100% { 
-        width: 0; 
+      100% {
+        width: 0;
       }
     }
   }
@@ -183,6 +190,10 @@
     .toasts > .toast > .content {
       justify-content: flex-start;
     }
+  }
+
+  .hidden {
+    display: none;
   }
 </style>
 
@@ -216,6 +227,8 @@
     const persist = options.persist
     const computedTimeout = options.persist ? 0 : (options.timeout || timeout)
     const id = Math.random().toString(36).replace(/[^a-z]+/g, '')
+    const showProgress = options.showProgress ?? true
+    const icon = options.icon
 
     try {
       sessionStorage.setItem(
@@ -233,12 +246,18 @@
       background,
       persist,
       timeout: computedTimeout,
+      showProgress,
+      icon,
       width: '100%'
     }, ...toasts ]
   }
 
   function maybePurge (toast) {
     !toast.persist && purge(toast.id)
+  }
+
+  function maybePurgeAfterTimeout (toast) {
+    setTimeout(() => maybePurge(toast), toast.timeout)
   }
 
   function purge (id) {

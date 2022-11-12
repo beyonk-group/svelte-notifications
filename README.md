@@ -46,7 +46,9 @@ You can call multiple types of notification:
 ```js
 const options = {
   timeout: 3000, // milliseconds
-  persist: false // automatic timeout (ignores above)
+  persist: false, // automatic timeout (ignores above)
+  showProgess: true, // Show (or Hide) the progress bar
+  icon: null // Add svelte component to render an icon
 }
 
 notifier.show('danger', message, options)
@@ -153,6 +155,25 @@ function someFunction () {
 </script>
 ```
 
+##### Show Progress:
+
+You can show or hide the progress bar per message
+
+```svelte
+<NotificationDisplay />
+
+<button on:click={someFunction}>Show message</button>
+
+<script>
+import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
+
+function someFunction () {
+  notifier.success('Notifications work!', { showProgress: false }) // built in theme
+  notifier.send('custom-theme', 'Notifications work!', { showProgress: true }) // custom theme
+}
+</script>
+```
+
 ##### Persist
 
 You can make a message persist and never timeout, having a close button that the user can click to remove it.
@@ -170,6 +191,34 @@ function someFunction () {
   notifier.send('custom-theme', 'Notifications work!', { persist: true }) // custom theme
 }
 </script>
+```
+
+##### Icons
+
+You can include custom svelte components to render icons (or anything).
+
+```svelte
+<NotificationDisplay />
+
+<button on:click={someFunction}>Show message</button>
+
+<script>
+import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
+impoer Icon from 'somewhere/Icon.svelte'
+
+function someFunction () {
+  notifier.success('Notifications work!', { icon: Icon })
+}
+</script>
+
+// Icon.svelte
+
+<svg width="1em" height="1em" viewBox="0 0 36 36">
+  <path
+    fill="currentColor"
+    d="M18 34a16 16 0 1 1 16-16a16 16 0 0 1-16 16Zm0-30a14 14 0 1 0 14 14A14 14 0 0 0 18 4Z"
+  </path>
+</svg>
 ```
 
 ## Credits
