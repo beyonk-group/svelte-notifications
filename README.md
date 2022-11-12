@@ -10,7 +10,7 @@ Svelte Notifications component
 
 * Uses SvelteKit 🎉
 * v3 compatible
-* uses stores for completely hassle free operation
+* Uses stores for completely hassle free operation
 * Can persist across full page reloads!
 
 ## Demo
