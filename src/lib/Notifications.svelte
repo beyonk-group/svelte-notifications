@@ -69,7 +69,7 @@
   .toasts > .toast > .progress {
     position: absolute;
     bottom: 0;
-    background-color: rgb(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     height: 6px;
     width: 100%;
     animation-name: shrink;
