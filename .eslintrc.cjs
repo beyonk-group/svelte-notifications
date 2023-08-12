@@ -1,13 +1,14 @@
 module.exports = {
-  root: true,
-  extends: [ '@beyonk' ],
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 2019
-  },
-  env: {
-    browser: true,
-    es2017: true,
-    node: true
-  }
-}
+	root: true,
+	extends: ['eslint:recommended', 'plugin:svelte/recommended', '@beyonk/eslint-config', 'prettier'],
+	parserOptions: {
+		sourceType: 'module',
+		ecmaVersion: 2020,
+		extraFileExtensions: ['.svelte']
+	},
+	env: {
+		browser: true,
+		es2017: true,
+		node: true
+	}
+};

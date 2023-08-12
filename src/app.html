@@ -2,19 +2,19 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="/favicon.png" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		%sveltekit.head%
 		<style>
 			@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&display=swap');
-			@import url('https://unpkg.com/@codolog/form@1.0.0/dist/form.min.css');
+			@import url('https://cdn.jsdelivr.net/npm/@codolog/form@1.0.0/dist/form.min.css');
 
 			body {
 				font-family: Assistant, sans-serif;
 			}
 		</style>
-		%svelte.head%
 	</head>
-	<body>
-		<div id="svelte">%svelte.body%</div>
+	<body data-sveltekit-preload-data="hover">
+		<div>%sveltekit.body%</div>
 	</body>
 </html>
